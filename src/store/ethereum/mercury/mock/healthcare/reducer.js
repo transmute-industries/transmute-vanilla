@@ -1,8 +1,8 @@
-import { Constants } from './constants'
+import Constants from './constants'
 
 export const initialState = {
   ReadModelStoreKey: '', // CONTRACT_ADDRESS:READ_MODEL_NAME
-  ReadModelType: 'MercuryEventStoreUser', // READ_MODEL_NAME
+  ReadModelType: 'MercuryEventStore', // READ_MODEL_NAME
   LastEvent: null, // Last Event Index Processed
   BirthDate: '',
   Name: '',
@@ -10,12 +10,9 @@ export const initialState = {
 }
 
 const handlers = {
-  [Constants.MERCURY_EVENT_STORE_USER_CREATED]: (state, transmuteEvent) => {
+  [Constants.EVENT_STORE_RECEIVED]: (state, transmuteEvent) => {
     return Object.assign({}, state, {
-      Name: transmuteEvent.Name,
-      BirthDate: transmuteEvent.BirthDate,
-      Role: transmuteEvent.Role,
-      LastEvent: transmuteEvent.Id
+      EventStore: transmuteEvent
     })
   }, 
 }
