@@ -60,7 +60,7 @@ export default class VerticalLinearStepper extends React.Component {
     this.props.setStep(stepIndex + 1)
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: this.props.mercury.step === 10,
+      finished: this.props.mercury.step === 5,
     })
   }
 
@@ -91,8 +91,8 @@ export default class VerticalLinearStepper extends React.Component {
             onTouchTap={this.handlePrev}
           />
         )}
-        <RaisedButton
-          label={stepIndex === 10 ? 'Finish' : 'Next'}
+        <FlatButton
+          label={stepIndex === 5 ? 'Finish' : 'Next'}
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
