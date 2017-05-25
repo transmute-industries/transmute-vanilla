@@ -10,8 +10,6 @@ function onChange(newValue) {
   console.log('change',newValue)
 }
 
-
-
 import { connect } from 'react-redux'
 
 @connect(
@@ -21,30 +19,27 @@ import { connect } from 'react-redux'
   {
   }
 )
-export default class EventCode extends Component {
+export default class JsonPreview extends Component {
 
     state = {
-        defaultCode:  JSON.stringify(this.props.mercury.events[this.props.mercury.step],  null, "\t")
+        defaultCode: JSON.stringify(this.props.mercury.EventStore,  null, "\t")
     }
 
     componentWillReceiveProps(nextProps){
-      let event_code = nextProps.mercury.events[nextProps.mercury.step]
-      console.log('can has the correct event code...', event_code)
       this.setState({
-        defaultCode:  JSON.stringify(event_code,  null, "\t")
+        defaultCode: JSON.stringify(nextProps.mercury.EventStore,  null, "\t")
       })
     }
-
   render() {
     return (
         <AceEditor
             mode='json'
             theme='monokai'
             onChange={onChange}
-            name='EventCode'
-            width={'600px'}
-            height={'400px'}
+            name='JsonPreview'
             value={this.state.defaultCode}
+            width={'700px'}
+            height={'400px'}
             editorProps={{$blockScrolling: true}}
             />
     )

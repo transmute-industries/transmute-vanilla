@@ -14,10 +14,30 @@ import CreateEvent from './CreateEvent'
 
 import { connect } from 'react-redux'
 
+
+import Mercury from 'store/ethereum/mercury'
+
+import moment from 'moment'
+
+
 @connect(
-  ({ mercury }) => ({
+  ({ mercury, web3 }) => ({
+    web3: web3,
     mercury: mercury
-  })
+  }),
+  {
+      saveEvent: (contractAddress, fromAddress, event) => (dispatch) => {
+       let bindingModel = {
+        contractAddress: contractAddress,
+        fromAddress:  fromAddress,
+        event: event
+      }
+      dispatch(Mercury.saveEvent(bindingModel))
+    },
+    setStep: (step)  => (dispatch) => {
+      dispatch(Mercury.setStep(step))
+    }
+  }
 )
 export default class VerticalLinearStepper extends React.Component {
 
@@ -37,15 +57,22 @@ export default class VerticalLinearStepper extends React.Component {
 
   handleNext = () => {
     const {stepIndex} = this.state
+    this.props.setStep(stepIndex + 1)
     this.setState({
       stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
+      finished: this.props.mercury.step === 10,
     })
+  }
+
+  saveEvent = () => {
+     const { saveEvent, mercury, web3} = this.props
+     saveEvent(mercury.EventStore.ContractAddress, web3.defaultAddress, mercury.events[mercury.step])
   }
 
   handlePrev = () => {
     const {stepIndex} = this.state
     if (stepIndex > 0) {
+      this.props.setStep(stepIndex - 1)
       this.setState({stepIndex: stepIndex - 1})
     }
   }
@@ -65,13 +92,22 @@ export default class VerticalLinearStepper extends React.Component {
           />
         )}
         <RaisedButton
-          label={stepIndex === 4 ? 'Finish' : 'Next'}
+          label={stepIndex === 10 ? 'Finish' : 'Next'}
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
           onTouchTap={this.handleNext}
           style={{marginRight: 12}}
         />
+
+         <RaisedButton
+            label='Save Event'
+            disableTouchRipple={true}
+            disableFocusRipple={true}
+            secondary={true}
+            onTouchTap={ this.saveEvent }
+            style={{marginRight: 12}}
+            />
       </div>
     )
   }
@@ -102,8 +138,8 @@ export default class VerticalLinearStepper extends React.Component {
                 <Step key={index}>
                   <StepLabel>{step.Type}</StepLabel>
                   <StepContent>
-                    {JSON.stringify(step)}
-                    <CreateEvent />
+                    {/*{JSON.stringify(step)}*/}
+                    <CreateEvent style={{wdith: '100%'}}/>
                     {this.renderStepActions(index + 1)}
                   </StepContent>
                 </Step>

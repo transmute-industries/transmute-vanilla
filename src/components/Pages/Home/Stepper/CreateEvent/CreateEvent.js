@@ -3,30 +3,25 @@ import { connect } from 'react-redux'
 import { submit } from 'redux-form'
 
 // import { updateDebugSettings } from 'store/ethereum/web3'
-
+import RaisedButton from 'material-ui/RaisedButton'
 import EventCode from './EventCode'
+import JsonPreview from './JsonPreview'
 
-@connect(
-  // Map redux state to props
-  ({ web3 }) => ({
-    web3: web3
-  }),
-  {
-    // action for submitting redux-form
-    // submitForm: () => (dispatch) => dispatch(submit(LINK_ENCOUNTER_FORM_NAME)),
-    // onSubmit: (formModel) => (dispatch) => {
-    //   console.log('write link event to store here...', formModel)
-    //   // dispatch(updateDebugSettings(formModel))
-    // }
-  }
-)
+import { Grid, Row, Col } from 'react-flexbox-grid'
+
 export default class CreateEvent extends React.Component {
   render() {
-    const { web3, submitForm, onSubmit } = this.props
     return (
-      <div>
-        <EventCode />
-      </div>
+        <Grid fluid>
+          <Row>
+            <Col>
+              <EventCode/>
+            </Col>
+            <Col>
+              <JsonPreview/>
+            </Col>
+          </Row>
+        </Grid>
     )
   }
 }

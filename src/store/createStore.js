@@ -14,7 +14,7 @@ const logger = createLogger({
   //   console.log('what is log?', logEntry)
   // }
 
-  predicate: (getState, action) => action.type.indexOf('@@') === -1
+  predicate: (getState, action) => action.type && action.type.indexOf('@@') === -1
 })
 
 export default (initialState = {}, history) => {

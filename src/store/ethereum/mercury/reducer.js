@@ -13,7 +13,6 @@ export const initialState = {
   step: 0
 }
 
-
 const handlers = {
   [Constants.EVENT_STORE_ADDRESS_RECEIVED]: (state, action) => {
     
@@ -32,7 +31,26 @@ const handlers = {
       eventStoreAddress: action.payload
     })
   },
-  
+
+  [Constants.EVENT_STORE_RECEIVED]: (state, action) => {
+    let step = state.step + 1
+    return Object.assign({}, state, {
+      EventStore: action.payload
+    })
+  },
+
+  [Constants.EVENT_STORE_UPDATED]: (state, action) => {
+    let step = state.step + 1
+    return Object.assign({}, state, {
+      step: step,
+      EventStore: action.payload
+    })
+  },
+  [Constants.DEMO_STEP]: (state, action) => {
+    return Object.assign({}, state, {
+      step: action.payload,
+    })
+  }
 }
 
 export const mercuryReducer = (state = initialState, action) => {

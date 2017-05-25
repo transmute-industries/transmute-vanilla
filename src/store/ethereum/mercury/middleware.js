@@ -13,14 +13,13 @@ mercuryEventStoreFactory.setProvider(web3.currentProvider)
 
 import TransmuteFramework from 'transmute-framework'
 
-
 import { 
   readModel, 
   reducer
 } from './mock/healthcare/reducer'
 
 
-import { extend } from 'lodash'
+import { extend, cloneDeep } from 'lodash'
 
 export const getMercuryEventStoreByCreator = async (fromAddress, _callback) => {
   let factory = await mercuryEventStoreFactory.deployed()
@@ -65,8 +64,9 @@ export const rebuild = async (bindingModel, _callback) =>{
   _callback(updatedReadModel)
 }
 
-export const createEvent = async(bindingModel, _callback) => {
+export const saveEvent = async(bindingModel, _callback) => {
   let { contractAddress, fromAddress,  event } = bindingModel
+  event = cloneDeep(event)
   let eventStore = await mercuryEventStoreContract.at(contractAddress)
   let events = await TransmuteFramework.EventStore.writeEvent(eventStore, event, fromAddress)
   let updatedReadModel = await getCachedReadModel(contractAddress, eventStore, readModel, reducer)

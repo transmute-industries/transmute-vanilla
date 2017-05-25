@@ -2,6 +2,12 @@ import Constants from './mock/healthcare/constants'
 
 import * as Middleware from './middleware'
 
+export const setStep = (step) => dispatch => {
+  dispatch({
+    type: Constants.DEMO_STEP,
+    payload: step
+  })
+}
 
 export const getMercuryEventStoreAddresses = (fromAddress) => dispatch => {
   Middleware.getMercuryEventStoreAddresses(fromAddress, (addresses) => {
@@ -40,14 +46,12 @@ export const rebuild = (bindingModel) => dispatch => {
   })
 }
 
-export const createEvent = (bindingModel) => dispatch => {
-  Middleware.createEvent(bindingModel, (readModel) => {
-
-    // dispatch({
-    //   type: Constants.EVENT_STORE_UPDATED,
-    //   payload: readModel
-    // })
-    
+export const saveEvent = (bindingModel) => dispatch => {
+  Middleware.saveEvent(bindingModel, (readModel) => {
+    dispatch({
+      type: Constants.EVENT_STORE_UPDATED,
+      payload: readModel
+    })
   })
 }
 
