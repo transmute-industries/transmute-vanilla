@@ -1,15 +1,6 @@
-import Constants from './constants'
-import * as Middleware from './middleware'
+import Constants from './mock/healthcare/constants'
 
-    
-export const getMercuryEventStoreByCreator = (fromAddress) => dispatch => {
-  Middleware.getMercuryEventStoreByCreator(fromAddress, (address) => {
-    dispatch({
-      type: Constants.EVENT_STORE_RECEIVED,
-      payload: address
-    })
-  })
-}
+import * as Middleware from './middleware'
 
 
 export const getMercuryEventStoreAddresses = (fromAddress) => dispatch => {
@@ -20,20 +11,30 @@ export const getMercuryEventStoreAddresses = (fromAddress) => dispatch => {
     })
   })
 }
-
-export const createMercuryEventStore = (bindingModel) => dispatch => {
-  Middleware.createMercuryEventStore(bindingModel, (address) => {
+    
+export const getMercuryEventStoreByCreator = (fromAddress) => dispatch => {
+  Middleware.getMercuryEventStoreByCreator(fromAddress, (address) => {
     dispatch({
-      type: Constants.EVENT_STORE_RECEIVED,
+      type: Constants.EVENT_STORE_ADDRESS_RECEIVED,
       payload: address
     })
   })
 }
 
-export const getEventStoreReadModel = (bindingModel) => dispatch => {
-  Middleware.getEventStoreReadModel(bindingModel, (readModel) => {
+
+export const createMercuryEventStore = (bindingModel) => dispatch => {
+  Middleware.createMercuryEventStore(bindingModel, (address) => {
     dispatch({
-      type: Constants.EVENT_STORE_UPDATED,
+      type: Constants.EVENT_STORE_ADDRESS_RECEIVED,
+      payload: address
+    })
+  })
+}
+
+export const rebuild = (bindingModel) => dispatch => {
+  Middleware.rebuild(bindingModel, (readModel) => {
+    dispatch({
+      type: Constants.EVENT_STORE_RECEIVED,
       payload: readModel
     })
   })

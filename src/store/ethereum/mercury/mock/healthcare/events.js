@@ -1,6 +1,9 @@
 
 export default [
     {
+        Type: "CREATE_EVENT_STORE"
+    },
+    {
         Type: "EVENT_STORE_RECEIVED"
     },
     {

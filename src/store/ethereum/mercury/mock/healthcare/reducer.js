@@ -1,6 +1,6 @@
 import Constants from './constants'
 
-export const initialState = {
+export const readModel = {
   ReadModelStoreKey: '', // CONTRACT_ADDRESS:READ_MODEL_NAME
   ReadModelType: 'MercuryEventStore', // READ_MODEL_NAME
   LastEvent: null, // Last Event Index Processed
@@ -17,7 +17,7 @@ const handlers = {
   }, 
 }
 
-export const reducer = (state = initialState, transmuteEvent) => {
+export const reducer = (state = readModel, transmuteEvent) => {
   // console.log('transmuteEvent: ', transmuteEvent)
   if (handlers[transmuteEvent.Type]) {
     return handlers[transmuteEvent.Type](state, transmuteEvent)

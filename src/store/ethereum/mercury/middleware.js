@@ -20,7 +20,7 @@ import {
 } from './mock/healthcare/reducer'
 
 
-import {extend} from 'lodash'
+import { extend } from 'lodash'
 
 export const getMercuryEventStoreByCreator = async (fromAddress, _callback) => {
   let factory = await mercuryEventStoreFactory.deployed()
@@ -58,7 +58,7 @@ export const getCachedReadModel = async (contractAddress, eventStore, readModel,
   return await TransmuteFramework.ReadModel.maybeSyncReadModel(eventStore, readModel, reducer)
 }
 
-export const getEventStoreReadModel = async (bindingModel, _callback) =>{
+export const rebuild = async (bindingModel, _callback) =>{
   let { contractAddress } = bindingModel
   let eventStore = await mercuryEventStoreContract.at(contractAddress)
   let updatedReadModel = await getCachedReadModel(contractAddress, eventStore, readModel, reducer)

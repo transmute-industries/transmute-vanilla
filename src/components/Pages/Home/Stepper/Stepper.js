@@ -28,9 +28,9 @@ export default class VerticalLinearStepper extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.mercury.demo.step){
+    if (nextProps.mercury.step){
       this.setState({
-        stepIndex: nextProps.mercury.demo.step
+        stepIndex: nextProps.mercury.step
       })
     }
   }
@@ -78,20 +78,26 @@ export default class VerticalLinearStepper extends React.Component {
 
   render() {
     const {finished, stepIndex} = this.state
-    const stepData = this.state.data[stepIndex]
+    // const stepData = this.state.data[stepIndex]
+    const events = this.props.mercury.events
     return (
       <div>
         <Stepper activeStep={stepIndex} orientation='vertical'>
-           <Step key={index}>
-                  <StepLabel>Create Event Store</StepLabel>
-                  <StepContent>
-                    <CreateEventStore />
-                    {this.renderStepActions(0)}
-                  </StepContent>
-                </Step>
+           
           {
-            this.state.data && 
-            this.state.data.map((step, index) => {
+            events.map((step, index) => {
+
+              if (index === 0){
+              return (
+                <Step key={index}>
+                <StepLabel>{step.Type}</StepLabel>
+                <StepContent>
+                <CreateEventStore />
+                {this.renderStepActions(0)}
+                </StepContent>
+                </Step>
+              )
+              }
               return (
                 <Step key={index}>
                   <StepLabel>{step.Type}</StepLabel>
