@@ -95,12 +95,13 @@ export default class VerticalLinearStepper extends React.Component {
           label={stepIndex === 5 ? 'Finish' : 'Next'}
           disableTouchRipple={true}
           disableFocusRipple={true}
-          primary={true}
           onTouchTap={this.handleNext}
           style={{marginRight: 12}}
         />
 
-         <RaisedButton
+        {
+          stepIndex !== 0 && 
+          <RaisedButton
             label='Save Event'
             disableTouchRipple={true}
             disableFocusRipple={true}
@@ -108,6 +109,8 @@ export default class VerticalLinearStepper extends React.Component {
             onTouchTap={ this.saveEvent }
             style={{marginRight: 12}}
             />
+        }
+         
       </div>
     )
   }
