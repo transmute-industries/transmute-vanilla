@@ -21,7 +21,7 @@ export default [
         ProviderName: 'Mass General'
     },
     {
-        Type: "INSURER_REGISTERD",
+        Type: "INSURER_REGISTERED",
         InsurerId: 'athn-insurer-0',
         InsurerName: 'Medicare'
     },

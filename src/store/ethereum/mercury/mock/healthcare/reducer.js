@@ -44,7 +44,7 @@ const handlers = {
     })
   }, 
 
-  [Constants.INSURER_REGISTERD]: (state, transmuteEvent) => {
+  [Constants.INSURER_REGISTERED]: (state, transmuteEvent) => {
     return Object.assign({}, state, {
       Insurers: {
         [transmuteEvent.InsurerId]: {
